@@ -1,7 +1,7 @@
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
-pub struct Order {
+pub struct RawOrder {
     order_id: String,
     customer_id: String,
     order_status: String,
@@ -13,7 +13,7 @@ pub struct Order {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct OrderItem {
+pub struct RawOrderItem {
     order_id: String,
     order_item_id: String,
     product_id: String,
@@ -24,8 +24,7 @@ pub struct OrderItem {
 }
 
 #[derive(Debug, Deserialize)]
-// "product_id","product_category_name","product_name_lenght","product_description_lenght","product_photos_qty","product_weight_g","product_length_cm","product_height_cm","product_width_cm"
-pub struct Product {
+pub struct RawProduct {
     product_id: Option<String>,
     product_category_name: Option<String>,
     product_name_lenght: Option<i64>,
@@ -38,7 +37,7 @@ pub struct Product {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Customer {
+pub struct RawCustomer {
     customer_id: String,
     customer_unique_id: String,
     customer_zip_code_prefix: String,
@@ -47,7 +46,7 @@ pub struct Customer {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Seller {
+pub struct RawSeller {
     seller_id: String,
     seller_zip_code_prefix: String,
     seller_city: String,
@@ -55,7 +54,7 @@ pub struct Seller {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Review {
+pub struct RawReview {
     review_id: String,
     order_id: String,
     review_score: i64,

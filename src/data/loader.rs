@@ -3,27 +3,27 @@ use serde::{de::DeserializeOwned, Deserialize};
 use super::models::*;
 
 /// load ../data/olist_orders_dataset   .csv into a Vec<Order>
-pub fn load_orders() -> Vec<Order> {
+pub fn load_orders() -> Vec<RawOrder> {
     load("data/olist_orders_dataset.csv")
 }
 
-pub fn load_order_items() -> Vec<OrderItem> {
+pub fn load_order_items() -> Vec<RawOrderItem> {
     load("data/olist_order_items_dataset.csv")
 }
 
-pub fn load_products() -> Vec<Product> {
+pub fn load_products() -> Vec<RawProduct> {
     load("data/olist_products_dataset.csv")
 }
 
-pub fn load_customers() -> Vec<Customer> {
+pub fn load_customers() -> Vec<RawCustomer> {
     load("data/olist_customers_dataset.csv")
 }
 
-pub fn load_sellers() -> Vec<Seller> {
+pub fn load_sellers() -> Vec<RawSeller> {
     load("data/olist_sellers_dataset.csv")
 }
 
-pub fn load_reviews() -> Vec<Review> {
+pub fn load_reviews() -> Vec<RawReview> {
     load("data/olist_order_reviews_dataset.csv")
 }
 
