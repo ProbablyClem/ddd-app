@@ -39,7 +39,7 @@ const calculateMetrics = async () => {
 
     return {
         topRatedProducts: sales.top_rated_products(reviews, orderItems, products), // Implement this logic
-        bestSellingProducts: [], // Implement this logic
+        bestSellingProducts: sales.best_selling_products(orderItems, products), // Implement this logic
         averageOrdersPerCustomer: 0, // Implement this logic
         monthlyRevenue: {}, // Implement this logic
         averageBasketValue: 0, // Implement this logic

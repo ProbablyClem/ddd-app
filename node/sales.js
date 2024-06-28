@@ -31,9 +31,28 @@ function top_rated_products(reviews, orderItems, products) {
     // Sort products by average rating and get the top 10
     const topRatedProducts = productAverageRatings.sort((a, b) => b.averageRating - a.averageRating).slice(0, 10).map(({ productId, averageRating }) => {
         const product = products.find(p => p.product_id === productId);
-        return { productId, averageRating, productName: product.product_category_name };
+        return { productId, averageRating };
     });
 
     return topRatedProducts;
 }
 exports.top_rated_products = top_rated_products;
+
+function best_selling_products(orderItems, products) {
+    // Calculate total sales for each product
+    const productSales = {};
+    orderItems.forEach(item => {
+        if (!productSales[item.product_id]) {
+            productSales[item.product_id] = 0;
+        }
+        productSales[item.product_id] += 1;
+    });
+
+    // Find the top 10 best-selling products
+    const bestSellingProducts = Object.entries(productSales).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([productId, sales]) => {
+        return { productId, sales };
+    });
+
+    return bestSellingProducts;
+}
+exports.best_selling_products = best_selling_products;
