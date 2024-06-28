@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import csv from 'csv-parser';
 import * as sales from './sales.js';
+import * as compta from './compta.js';
 
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
@@ -37,18 +38,22 @@ const calculateMetrics = async () => {
         customer_id_map.set(customer.customer_id, customer.customer_unique_id);
     });
 
-    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer] = await Promise.all([
-        sales.top_rated_products(reviews, orderItems, products),
-        sales.best_selling_products(orderItems, products),
-        sales.average_orders_per_customer(orders, customer_id_map),
+    let time = Date.now();
+    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, monthlyRevenue, averageBasketValue] = await Promise.all([
+        cache(sales.top_rated_products, reviews, orderItems, products),
+        cache(sales.best_selling_products, orderItems, products),
+        cache(sales.average_orders_per_customer, orders, customer_id_map),
+        cache(compta.get_monthly_revenue, orders, orderItems),
+        cache(compta.average_basket_value, orders, orderItems),
     ])
+    console.log('Total Time taken:', Date.now() - time, 'ms');
 
     return {
         topRatedProducts,
         bestSellingProducts,
         averageOrdersPerCustomer,
-        monthlyRevenue: {}, // Implement this logic
-        averageBasketValue: 0, // Implement this logic
+        monthlyRevenue, // Implement this logic
+        averageBasketValue, // Implement this logic
         pendingPayments: [], // Implement this logic
         topPerformingSellers: [], // Implement this logic
         monthlyOrderCount: 0, // Implement this logic
@@ -100,3 +105,23 @@ const metrics = await calculateMetrics();
 app.listen(port, async () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+// load the file with the name of the fn function or return the result of the function and cache it
+async function cache(fn, ...args) {
+    let time = Date.now();
+    const cacheFile = path.join(__dirname, `cache/${fn.name}.json`);
+
+    let result;
+    if (fs.existsSync(cacheFile)) {
+        console.log(`Cache hit for ${fn.name}`);
+        result = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+    }
+    else {
+        console.log(`Cache miss for ${fn.name}`);
+        result = await fn(...args);
+        fs.writeFileSync(cacheFile, JSON.stringify(result));
+        result = result;
+    }
+    console.log(`Time taken for ${fn.name}:`, Date.now() - time, 'ms');
+    return result;
+}
