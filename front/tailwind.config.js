@@ -1,4 +1,5 @@
 const animate = require("tailwindcss-animate")
+const daisyui = require('daisyui')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -49,6 +50,13 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "accountant": "#A4BD01",
+        "management": "#A7001E",
+        "sales": "#212E53",
+        "homeBackground": "#242423",
+        "homeCard": "#F5CB5C",
+        "homeFont": "#08C5D1",
+        "homeButton": "#00353F",
       },
       borderRadius: {
       	xl: "calc(var(--radius) + 4px)",
@@ -82,5 +90,5 @@ module.exports = {
       },
     },
   },
-  plugins: [animate],
+  plugins: [animate, daisyui],
 }
