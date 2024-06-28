@@ -1,4 +1,4 @@
-function top_rated_products(reviews, orderItems, products) {
+export async function top_rated_products(reviews, orderItems, products) {
     const orderReviews = {};
 
     reviews.forEach(review => {
@@ -36,9 +36,8 @@ function top_rated_products(reviews, orderItems, products) {
 
     return topRatedProducts;
 }
-exports.top_rated_products = top_rated_products;
 
-function best_selling_products(orderItems, products) {
+export async function best_selling_products(orderItems, products) {
     // Calculate total sales for each product
     const productSales = {};
     orderItems.forEach(item => {
@@ -55,4 +54,19 @@ function best_selling_products(orderItems, products) {
 
     return bestSellingProducts;
 }
-exports.best_selling_products = best_selling_products;
+
+export async function average_orders_per_customer(orders, customer_id_map) {
+    const customerOrders = {};
+    orders.forEach(order => {
+        let unique_id = customer_id_map.get(order.customer_id);
+        if (!customerOrders[unique_id]) {
+            customerOrders[unique_id] = 0;
+        }
+        customerOrders[unique_id] += 1;
+    });
+
+    const totalOrders = Object.values(customerOrders).reduce((sum, count) => sum + count, 0);
+    const totalCustomers = Object.keys(customerOrders).length;
+
+    return totalOrders / totalCustomers;
+}
