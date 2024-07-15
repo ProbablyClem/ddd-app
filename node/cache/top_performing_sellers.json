@@ -1,0 +1,156 @@
+{
+  "2016-8": [
+    { "sales": 3, "name": "ecccfa2bb93b34a3bf033cc5d1dcdc69" },
+    { "sales": 2, "name": "1554a68530182680ad5c8b042c3ab563" },
+    { "sales": 1, "name": "a425f92c199eb576938df686728acd20" }
+  ],
+  "2016-9": [
+    { "sales": 29, "name": "620c87c171fb2a6dd6e8bb4dec959fc6" },
+    { "sales": 16, "name": "ecccfa2bb93b34a3bf033cc5d1dcdc69" },
+    { "sales": 13, "name": "391fc6631aebcf3004804e51b40bcf1e" },
+    { "sales": 13, "name": "cca3071e3e9bb7d12640c9fbe2301306" },
+    { "sales": 11, "name": "46dc3b2cc0980fb8ec44634e21d2718e" }
+  ],
+  "2016-11": [{ "sales": 1, "name": "48efc9d94a9834137efd9ea76b065a38" }],
+  "2017-0": [
+    { "sales": 60, "name": "cca3071e3e9bb7d12640c9fbe2301306" },
+    { "sales": 33, "name": "48efc9d94a9834137efd9ea76b065a38" },
+    { "sales": 31, "name": "620c87c171fb2a6dd6e8bb4dec959fc6" },
+    { "sales": 28, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 19, "name": "b76dba6c951ab00dc4edf0a1aa88037e" }
+  ],
+  "2017-1": [
+    { "sales": 69, "name": "cca3071e3e9bb7d12640c9fbe2301306" },
+    { "sales": 47, "name": "620c87c171fb2a6dd6e8bb4dec959fc6" },
+    { "sales": 37, "name": "7c67e1448b00f6e969d365cea6b010ab" },
+    { "sales": 37, "name": "da8622b14eb17ae2831f4ac5b9dab84a" },
+    { "sales": 29, "name": "0c8380b62e38e8a1e6adbeba7eb9688c" }
+  ],
+  "2017-2": [
+    { "sales": 70, "name": "cca3071e3e9bb7d12640c9fbe2301306" },
+    { "sales": 67, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 64, "name": "2138ccb85b11a4ec1e37afbd1c8eda1f" },
+    { "sales": 59, "name": "6560211a19b47992c3666cc44a7e94c0" },
+    { "sales": 55, "name": "7c67e1448b00f6e969d365cea6b010ab" }
+  ],
+  "2017-3": [
+    { "sales": 82, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 61, "name": "7a67c85e85bb2ce8582c35f2203ad736" },
+    { "sales": 51, "name": "620c87c171fb2a6dd6e8bb4dec959fc6" },
+    { "sales": 50, "name": "d2374cbcbb3ca4ab1086534108cc3ab7" },
+    { "sales": 46, "name": "6560211a19b47992c3666cc44a7e94c0" }
+  ],
+  "2017-4": [
+    { "sales": 135, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 131, "name": "7a67c85e85bb2ce8582c35f2203ad736" },
+    { "sales": 85, "name": "cc419e0650a3c5ba77189a1882b7556a" },
+    { "sales": 73, "name": "f8db351d8c4c4c22c6835c19a46f01b0" },
+    { "sales": 59, "name": "2138ccb85b11a4ec1e37afbd1c8eda1f" }
+  ],
+  "2017-5": [
+    { "sales": 102, "name": "cc419e0650a3c5ba77189a1882b7556a" },
+    { "sales": 100, "name": "7a67c85e85bb2ce8582c35f2203ad736" },
+    { "sales": 100, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 73, "name": "813348c996469b40f2e028d5429d3495" },
+    { "sales": 66, "name": "6560211a19b47992c3666cc44a7e94c0" }
+  ],
+  "2017-6": [
+    { "sales": 142, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 138, "name": "cc419e0650a3c5ba77189a1882b7556a" },
+    { "sales": 108, "name": "7c67e1448b00f6e969d365cea6b010ab" },
+    { "sales": 100, "name": "7a67c85e85bb2ce8582c35f2203ad736" },
+    { "sales": 92, "name": "37be5a7c751166fbc5f8ccba4119e043" }
+  ],
+  "2017-7": [
+    { "sales": 148, "name": "cc419e0650a3c5ba77189a1882b7556a" },
+    { "sales": 138, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 135, "name": "1f50f920176fa81dab994f9023523100" },
+    { "sales": 91, "name": "7a67c85e85bb2ce8582c35f2203ad736" },
+    { "sales": 89, "name": "6560211a19b47992c3666cc44a7e94c0" }
+  ],
+  "2017-8": [
+    { "sales": 144, "name": "cc419e0650a3c5ba77189a1882b7556a" },
+    { "sales": 129, "name": "1f50f920176fa81dab994f9023523100" },
+    { "sales": 116, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 112, "name": "6560211a19b47992c3666cc44a7e94c0" },
+    { "sales": 88, "name": "53243585a1d6dc2643021fd1853d8905" }
+  ],
+  "2017-9": [
+    { "sales": 149, "name": "1f50f920176fa81dab994f9023523100" },
+    { "sales": 138, "name": "cc419e0650a3c5ba77189a1882b7556a" },
+    { "sales": 119, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 112, "name": "6560211a19b47992c3666cc44a7e94c0" },
+    { "sales": 89, "name": "7c67e1448b00f6e969d365cea6b010ab" }
+  ],
+  "2017-10": [
+    { "sales": 358, "name": "1f50f920176fa81dab994f9023523100" },
+    { "sales": 212, "name": "cc419e0650a3c5ba77189a1882b7556a" },
+    { "sales": 205, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 190, "name": "6560211a19b47992c3666cc44a7e94c0" },
+    { "sales": 179, "name": "1025f0e2d44d7041d6cf58b6550e0bfa" }
+  ],
+  "2017-11": [
+    { "sales": 190, "name": "cc419e0650a3c5ba77189a1882b7556a" },
+    { "sales": 178, "name": "1f50f920176fa81dab994f9023523100" },
+    { "sales": 153, "name": "da8622b14eb17ae2831f4ac5b9dab84a" },
+    { "sales": 147, "name": "3d871de0142ce09b7081e2b9d1733cb1" },
+    { "sales": 146, "name": "ea8482cd71df3c1969d7b9473ff13abc" }
+  ],
+  "2018-0": [
+    { "sales": 253, "name": "955fee9216a65b617aa5c0531780ce60" },
+    { "sales": 203, "name": "3d871de0142ce09b7081e2b9d1733cb1" },
+    { "sales": 188, "name": "da8622b14eb17ae2831f4ac5b9dab84a" },
+    { "sales": 184, "name": "8b321bb669392f5163d04c59e235e066" },
+    { "sales": 181, "name": "ea8482cd71df3c1969d7b9473ff13abc" }
+  ],
+  "2018-1": [
+    { "sales": 183, "name": "8b321bb669392f5163d04c59e235e066" },
+    { "sales": 180, "name": "1f50f920176fa81dab994f9023523100" },
+    { "sales": 144, "name": "ea8482cd71df3c1969d7b9473ff13abc" },
+    { "sales": 116, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 111, "name": "da8622b14eb17ae2831f4ac5b9dab84a" }
+  ],
+  "2018-2": [
+    { "sales": 193, "name": "7c67e1448b00f6e969d365cea6b010ab" },
+    { "sales": 172, "name": "ea8482cd71df3c1969d7b9473ff13abc" },
+    { "sales": 164, "name": "955fee9216a65b617aa5c0531780ce60" },
+    { "sales": 151, "name": "8b321bb669392f5163d04c59e235e066" },
+    { "sales": 148, "name": "1025f0e2d44d7041d6cf58b6550e0bfa" }
+  ],
+  "2018-3": [
+    { "sales": 237, "name": "955fee9216a65b617aa5c0531780ce60" },
+    { "sales": 150, "name": "1f50f920176fa81dab994f9023523100" },
+    { "sales": 145, "name": "da8622b14eb17ae2831f4ac5b9dab84a" },
+    { "sales": 143, "name": "1025f0e2d44d7041d6cf58b6550e0bfa" },
+    { "sales": 127, "name": "4869f7a5dfa277a7dca6462dcf3b52b2" }
+  ],
+  "2018-4": [
+    { "sales": 261, "name": "955fee9216a65b617aa5c0531780ce60" },
+    { "sales": 214, "name": "7d13fca15225358621be4086e1eb0964" },
+    { "sales": 189, "name": "1025f0e2d44d7041d6cf58b6550e0bfa" },
+    { "sales": 147, "name": "1f50f920176fa81dab994f9023523100" },
+    { "sales": 119, "name": "da8622b14eb17ae2831f4ac5b9dab84a" }
+  ],
+  "2018-5": [
+    { "sales": 171, "name": "6560211a19b47992c3666cc44a7e94c0" },
+    { "sales": 122, "name": "1025f0e2d44d7041d6cf58b6550e0bfa" },
+    { "sales": 115, "name": "955fee9216a65b617aa5c0531780ce60" },
+    { "sales": 97, "name": "4869f7a5dfa277a7dca6462dcf3b52b2" },
+    { "sales": 90, "name": "c70c1b0d8ca86052f45a432a38b73958" }
+  ],
+  "2018-6": [
+    { "sales": 211, "name": "6560211a19b47992c3666cc44a7e94c0" },
+    { "sales": 151, "name": "1025f0e2d44d7041d6cf58b6550e0bfa" },
+    { "sales": 82, "name": "4a3ca9315b744ce9f8e9374361493884" },
+    { "sales": 79, "name": "da8622b14eb17ae2831f4ac5b9dab84a" },
+    { "sales": 77, "name": "06a2c3af7b3aee5d69171b0e14f0ee87" }
+  ],
+  "2018-7": [
+    { "sales": 204, "name": "6560211a19b47992c3666cc44a7e94c0" },
+    { "sales": 138, "name": "1025f0e2d44d7041d6cf58b6550e0bfa" },
+    { "sales": 86, "name": "4869f7a5dfa277a7dca6462dcf3b52b2" },
+    { "sales": 80, "name": "53243585a1d6dc2643021fd1853d8905" },
+    { "sales": 75, "name": "9f505651f4a6abe901a56cdc21508025" }
+  ],
+  "2018-8": [{ "sales": 1, "name": "25be943a321c8938947bdaabca979a90" }]
+}

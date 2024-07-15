@@ -4,6 +4,7 @@ import path from 'path';
 import csv from 'csv-parser';
 import * as sales from './sales.js';
 import * as compta from './compta.js';
+import * as management from './management.js'
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
@@ -34,6 +35,7 @@ const calculateMetrics = async () => {
     const products = await loadData(path.join(__dirname, '../data/olist_products_dataset.csv'));
     const payments = await loadData(path.join(__dirname, '../data/olist_order_payments_dataset.csv'));
     const reviews = await loadData(path.join(__dirname, '../data/olist_order_reviews_dataset.csv'));
+    const sellers = await loadData(path.join(__dirname, '../data/olist_sellers_dataset.csv'));
 
     const customer_id_map = new Map();
     customers.forEach(customer => {
@@ -49,6 +51,7 @@ const calculateMetrics = async () => {
         cache(compta.get_monthly_revenue, orders, orderItems),
         cache(compta.average_basket_value, orders, orderItems),
         cache(compta.payments_type, orders, payments),
+        cache(management.top_performing_sellers, sellers, orders, orderItems)
     ])
     console.log('Total Time taken:', Date.now() - time, 'ms');
 
@@ -60,7 +63,7 @@ const calculateMetrics = async () => {
         monthlyRevenue,
         averageBasketValue,
         paymentsType,
-        topPerformingSellers: [], // Implement this logic
+        topPerformingSellers, // Implement this logic
         monthlyOrderCount: 0, // Implement this logic
     };
 };
