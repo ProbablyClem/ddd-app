@@ -67,7 +67,7 @@ const login = () => {
         authStore.setIsAccountant(user.isAccountant)
         authStore.setIsManagement(user.isManagement)
         authStore.setIsSales(user.isSales)
-        router.push('/dashboard')
+        router.push('/dashboard' + (user.isAccountant ? '_accountant' : '') + (user.isManagement ? '_management' : '') + (user.isSales ? '_sales' : ''))
     } else {
         alert('Identifiant ou mot de passe incorrect')
     }
