@@ -82,11 +82,26 @@ export async function score_by_delivery_time(orders, reviews) {
         }
         scoreByDeliveryTime[key].push(parseInt(order.score));
     });
-    console.log(scoreByDeliveryTime)
 
     for (let key in scoreByDeliveryTime) {
         scoreByDeliveryTime[key] = scoreByDeliveryTime[key].reduce((sum, score) => sum + score, 0) / scoreByDeliveryTime[key].length;
     }
 
     return scoreByDeliveryTime;
+}
+
+export async function mean_delivery_time(orders) {
+    orders = [...orders]
+
+    // Add delivery time as days to each order
+    orders.forEach(order => {
+        const purchaseDate = parseDate(order.order_purchase_timestamp);
+        const deliveryDate = parseDate(order.order_delivered_customer_date);
+        order.deliveryTime = Math.floor((deliveryDate - purchaseDate) / (1000 * 60 * 60 * 24));
+    });
+
+    orders = orders.filter(order => order.deliveryTime != NaN && order.deliveryTime > 0)
+
+    const meanDeliveryTime = orders.reduce((sum, order) => sum + order.deliveryTime, 0) / orders.length;
+    return meanDeliveryTime;
 }
