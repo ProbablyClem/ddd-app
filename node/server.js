@@ -41,7 +41,7 @@ const calculateMetrics = async () => {
     });
 
     let time = Date.now();
-    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, percentageOfReviews, monthlyRevenue, averageBasketValue, paymentsType] = await Promise.all([
+    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, percentageOfReviews, monthlyRevenue, averageBasketValue, paymentsType, topPerformingSellers] = await Promise.all([
         cache(sales.top_rated_products, reviews, orderItems, products),
         cache(sales.best_selling_products, orderItems, products),
         cache(sales.average_orders_per_customer, orders, customer_id_map),

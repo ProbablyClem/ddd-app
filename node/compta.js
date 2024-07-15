@@ -1,6 +1,6 @@
 import fs from 'fs';
-
-//paralelize the code
+import { compare_month } from './utils.js';
+// paralelize the code
 // split the orders into chunks and process them in parallel
 export async function get_monthly_revenue(orders, orderItems) {
 
@@ -21,7 +21,13 @@ export async function get_monthly_revenue(orders, orderItems) {
         }));
     }));
 
-    return monthlyRevenue;
+    //Sort by key
+    const sortedMonthlyRevenue = {};
+    Object.keys(monthlyRevenue).sort(compare_month).forEach(key => {
+        sortedMonthlyRevenue[key] = monthlyRevenue[key];
+    });
+
+    return sortedMonthlyRevenue;
 }
 
 // split the array into chunks
@@ -69,5 +75,11 @@ export async function payments_type(orders, ordersPayment) {
         paymentsType[key][payment.payment_type]++;
     });
 
-    return paymentsType;
+    //Sort by key
+    const sortedPaymentsType = {};
+    Object.keys(paymentsType).sort(compare_month).forEach(key => {
+        sortedPaymentsType[key] = paymentsType[key];
+    });
+
+    return sortedPaymentsType;
 }
