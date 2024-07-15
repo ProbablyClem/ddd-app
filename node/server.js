@@ -39,12 +39,13 @@ const calculateMetrics = async () => {
     });
 
     let time = Date.now();
-    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, monthlyRevenue, averageBasketValue] = await Promise.all([
+    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, monthlyRevenue, averageBasketValue, paymentsType] = await Promise.all([
         cache(sales.top_rated_products, reviews, orderItems, products),
         cache(sales.best_selling_products, orderItems, products),
         cache(sales.average_orders_per_customer, orders, customer_id_map),
         cache(compta.get_monthly_revenue, orders, orderItems),
         cache(compta.average_basket_value, orders, orderItems),
+        cache(compta.payments_type, orders, payments),
     ])
     console.log('Total Time taken:', Date.now() - time, 'ms');
 
@@ -52,9 +53,9 @@ const calculateMetrics = async () => {
         topRatedProducts,
         bestSellingProducts,
         averageOrdersPerCustomer,
-        monthlyRevenue, // Implement this logic
-        averageBasketValue, // Implement this logic
-        pendingPayments: [], // Implement this logic
+        monthlyRevenue,
+        averageBasketValue,
+        paymentsType,
         topPerformingSellers: [], // Implement this logic
         monthlyOrderCount: 0, // Implement this logic
     };
@@ -80,8 +81,8 @@ app.get('/api/compta/average-basket-value', async (req, res) => {
     res.json(metrics.averageBasketValue);
 });
 
-app.get('/api/compta/pending-payments', async (req, res) => {
-    res.json(metrics.pendingPayments);
+app.get('/api/compta/payment-types', async (req, res) => {
+    res.json(metrics.paymentsType);
 });
 
 app.get('/api/direction/top-performing-sellers', async (req, res) => {

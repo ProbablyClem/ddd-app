@@ -50,17 +50,24 @@ export async function average_basket_value(orders, orderItems) {
     return orderValues.reduce((sum, value) => sum + value, 0) / orderValues.length;
 }
 
-export async function pendingPayments(orders, orderItems) {
-    const pendingPayments = {};
+// Percentage of payments type by month
+export async function payments_type(orders, ordersPayment) {
+    const paymentsType = {};
     orders.forEach(order => {
-        const orderTotal = orderItems
-            .filter(item => item.order_id === order.order_id)
-            .reduce((sum, item) => sum + parseFloat(item.price), 0);
-        if (!pendingPayments[order.customer_id]) {
-            pendingPayments[order.customer_id] = 0;
+        const payment = ordersPayment.find(op => op.order_id === order.order_id);
+        if (!payment) {
+            return;
         }
-        pendingPayments[order.customer_id] += orderTotal;
+        let date = parseDate(order.order_purchase_timestamp);
+        let key = `${date.getFullYear()}-${date.getMonth()}`;
+        if (!paymentsType[key]) {
+            paymentsType[key] = {};
+        }
+        if (!paymentsType[key][payment.payment_type]) {
+            paymentsType[key][payment.payment_type] = 0;
+        }
+        paymentsType[key][payment.payment_type]++;
     });
 
-    return pendingPayments;
+    return paymentsType;
 }
