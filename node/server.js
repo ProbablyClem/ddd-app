@@ -43,11 +43,10 @@ const calculateMetrics = async () => {
     });
 
     let time = Date.now();
-    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, percentageOfReviews, monthlyRevenue, averageBasketValue, paymentsType, topPerformingSellers, monthlyOrderCount] = await Promise.all([
+    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, monthlyRevenue, averageBasketValue, paymentsType, topPerformingSellers, monthlyOrderCount] = await Promise.all([
         cache(sales.top_rated_products, reviews, orderItems, products),
         cache(sales.best_selling_products, orderItems, products),
         cache(sales.average_orders_per_customer, orders, customer_id_map),
-        cache(sales.percentage_of_reviews, orders, reviews),
         cache(compta.get_monthly_revenue, orders, orderItems),
         cache(compta.average_basket_value, orders, orderItems),
         cache(compta.payments_type, orders, payments),
@@ -60,7 +59,6 @@ const calculateMetrics = async () => {
         topRatedProducts,
         bestSellingProducts,
         averageOrdersPerCustomer,
-        percentageOfReviews, // Implement this logic
         monthlyRevenue,
         averageBasketValue,
         paymentsType,
@@ -80,10 +78,6 @@ app.get('/api/sales/best-selling-products', async (req, res) => {
 app.get('/api/sales/average-orders-per-customer', async (req, res) => {
     res.json(metrics.averageOrdersPerCustomer);
 });
-
-app.get('/api/sales/percentage-of-reviews', async (req, res) => {
-    res.json(metrics.percentageOfReviews);
-})
 
 app.get('/api/compta/monthly-revenue', async (req, res) => {
     res.json(metrics.monthlyRevenue);

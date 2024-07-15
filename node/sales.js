@@ -70,35 +70,3 @@ export async function average_orders_per_customer(orders, customer_id_map) {
 
     return totalOrders / totalCustomers;
 }
-
-// Percentages of orders with a review per month
-export async function percentage_of_reviews(orders, orderReviews) {
-    const orderReviewCounts = {};
-    orders.forEach(order => {
-        const reviews = orderReviews.filter(review => review.order_id === order.order_id);
-
-        let date = parseDate(order.order_purchase_timestamp);
-        let key = `${date.getFullYear()}-${date.getMonth()}`;
-        if (!orderReviewCounts[key]) {
-            orderReviewCounts[key] = { total: 0, reviewed: 0 };
-        }
-        orderReviewCounts[key].total += 1;
-        orderReviewCounts[key].reviewed += reviews.length > 0 ? 1 : 0;
-    });
-
-    const reviewPercentages = Object.entries(orderReviewCounts).map(([key, counts]) => {
-        return {
-            month: key,
-            percentage: (counts.reviewed / counts.total) * 100
-        };
-    });
-
-    return reviewPercentages;
-
-}
-
-// 2018-07-24 20:41:37
-function parseDate(date) {
-    const [year, month, day] = date.split(' ')[0].split('-');
-    return new Date(year, month - 1, day);
-}
