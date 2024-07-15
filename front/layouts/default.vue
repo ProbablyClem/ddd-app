@@ -72,10 +72,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { useAuthStore } from '~/stores/auth'
 
-const router = useRouter()
 const authStore = useAuthStore();
 
 const username = authStore.getUsername()
@@ -97,9 +95,9 @@ const pathForUser = (path) => {
     })
 }
 const paths = [
-    { name: 'X', path: '/', management: true, accountant: false, sales: true },
-    { name: 'Y', path: '/y', management: true, accountant: true, sales: false },
-    { name: 'Z', path: '/z', management: true, accountant: false, sales: false }
+    // { name: 'X', path: '/', management: true, accountant: false, sales: true },
+    // { name: 'Y', path: '/y', management: true, accountant: true, sales: false },
+    // { name: 'Z', path: '/z', management: true, accountant: false, sales: false }
 ]
 </script>
 
