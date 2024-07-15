@@ -1,5 +1,9 @@
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt'],
+  modules: ['@nuxtjs/tailwindcss',
+     'shadcn-nuxt',
+      "@pinia/nuxt",
+      "@pinia-plugin-persistedstate/nuxt",
+      'nuxt-highcharts'],
   shadcn: {
     /**
      * Prefix for all the imported component
