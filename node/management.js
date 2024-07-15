@@ -53,3 +53,40 @@ export async function monthly_order_count(orders) {
 
     return sortedMonthlyOrderCount;
 }
+
+export async function score_by_delivery_time(orders, reviews) {
+    orders = [...orders]
+    // Add delivery time as days to each order
+    orders.forEach(order => {
+        const purchaseDate = parseDate(order.order_purchase_timestamp);
+        const deliveryDate = parseDate(order.order_delivered_customer_date);
+        order.deliveryTime = Math.floor((deliveryDate - purchaseDate) / (1000 * 60 * 60 * 24));
+    });
+
+    // get score for each order
+    orders.forEach(order => {
+        const review = reviews.find(review => review.order_id === order.order_id);
+        if (review) {
+            order.score = review.review_score;
+        }
+    })
+
+    orders = orders.filter(order => order.score && order.deliveryTime);
+    orders = orders.filter(order => order.deliveryTime > 0 && order.deliveryTime < 50);
+
+    const scoreByDeliveryTime = {};
+    orders.forEach(order => {
+        let key = order.deliveryTime;
+        if (!scoreByDeliveryTime[key]) {
+            scoreByDeliveryTime[key] = [];
+        }
+        scoreByDeliveryTime[key].push(parseInt(order.score));
+    });
+    console.log(scoreByDeliveryTime)
+
+    for (let key in scoreByDeliveryTime) {
+        scoreByDeliveryTime[key] = scoreByDeliveryTime[key].reduce((sum, score) => sum + score, 0) / scoreByDeliveryTime[key].length;
+    }
+
+    return scoreByDeliveryTime;
+}

@@ -43,7 +43,7 @@ const calculateMetrics = async () => {
     });
 
     let time = Date.now();
-    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, monthlyRevenue, averageBasketValue, paymentsType, topPerformingSellers, monthlyOrderCount] = await Promise.all([
+    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, monthlyRevenue, averageBasketValue, paymentsType, topPerformingSellers, monthlyOrderCount, scoreByDeliveryTime] = await Promise.all([
         cache(sales.top_rated_products, reviews, orderItems, products),
         cache(sales.best_selling_products, orderItems, products),
         cache(sales.average_orders_per_customer, orders, customer_id_map),
@@ -51,7 +51,8 @@ const calculateMetrics = async () => {
         cache(compta.average_basket_value, orders, orderItems),
         cache(compta.payments_type, orders, payments),
         cache(management.top_performing_sellers, sellers, orders, orderItems),
-        cache(management.monthly_order_count, orders)
+        cache(management.monthly_order_count, orders),
+        cache(management.score_by_delivery_time, orders, reviews)
     ])
     console.log('Total Time taken:', Date.now() - time, 'ms');
 
@@ -63,7 +64,8 @@ const calculateMetrics = async () => {
         averageBasketValue,
         paymentsType,
         topPerformingSellers,
-        monthlyOrderCount, // Implement this logic
+        monthlyOrderCount,
+        scoreByDeliveryTime
     };
 };
 
@@ -106,6 +108,10 @@ app.get('/api/direction/monthly-order-count', async (req, res) => {
 app.get('/api/direction/monthly-revenue', async (req, res) => {
     res.json(metrics.monthlyRevenue);
 });
+
+app.get('/api/direction/score-by-delivery-time', async (req, res) => {
+    res.json(metrics.scoreByDeliveryTime);
+})
 
 const metrics = await calculateMetrics();
 
