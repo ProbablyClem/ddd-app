@@ -1,0 +1,11 @@
+version: '3'
+services:
+  front:
+    build: ./front
+    ports:
+      - "3002:3000"
+    environment:
+      - API_URL="http://back:3000"
+
+  back:
+    build : ./back

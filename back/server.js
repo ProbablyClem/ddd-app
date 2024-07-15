@@ -29,13 +29,13 @@ const loadData = (filePath) => {
 };
 
 const calculateMetrics = async () => {
-    const customers = await loadData(path.join(__dirname, '../data/olist_customers_dataset.csv'));
-    const orders = await loadData(path.join(__dirname, '../data/olist_orders_dataset.csv'));
-    const orderItems = await loadData(path.join(__dirname, '../data/olist_order_items_dataset.csv'));
-    const products = await loadData(path.join(__dirname, '../data/olist_products_dataset.csv'));
-    const payments = await loadData(path.join(__dirname, '../data/olist_order_payments_dataset.csv'));
-    const reviews = await loadData(path.join(__dirname, '../data/olist_order_reviews_dataset.csv'));
-    const sellers = await loadData(path.join(__dirname, '../data/olist_sellers_dataset.csv'));
+    const customers = await loadData(path.join(__dirname, './data/olist_customers_dataset.csv'));
+    const orders = await loadData(path.join(__dirname, './data/olist_orders_dataset.csv'));
+    const orderItems = await loadData(path.join(__dirname, './data/olist_order_items_dataset.csv'));
+    const products = await loadData(path.join(__dirname, './data/olist_products_dataset.csv'));
+    const payments = await loadData(path.join(__dirname, './data/olist_order_payments_dataset.csv'));
+    const reviews = await loadData(path.join(__dirname, './data/olist_order_reviews_dataset.csv'));
+    const sellers = await loadData(path.join(__dirname, './data/olist_sellers_dataset.csv'));
 
     const customer_id_map = new Map();
     customers.forEach(customer => {
