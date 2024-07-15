@@ -3,11 +3,12 @@ export default defineNuxtConfig({
     port: 3001,
   },
   modules: [
-    "@nuxtjs/tailwindcss",
-    "shadcn-nuxt",
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
-    "nuxt-highcharts",
+    'nuxt-highcharts',
+    "@nuxt/image"
   ],
   shadcn: {
     /**

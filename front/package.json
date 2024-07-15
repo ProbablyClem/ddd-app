@@ -11,6 +11,7 @@
     "start": "node .output/server/index.mjs"
   },
   "dependencies": {
+    "@nuxt/image": "^1.7.0",
     "@pinia/nuxt": "^0.5.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
