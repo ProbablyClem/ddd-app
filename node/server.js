@@ -43,7 +43,7 @@ const calculateMetrics = async () => {
     });
 
     let time = Date.now();
-    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, percentageOfReviews, monthlyRevenue, averageBasketValue, paymentsType, topPerformingSellers] = await Promise.all([
+    let [topRatedProducts, bestSellingProducts, averageOrdersPerCustomer, percentageOfReviews, monthlyRevenue, averageBasketValue, paymentsType, topPerformingSellers, monthlyOrderCount] = await Promise.all([
         cache(sales.top_rated_products, reviews, orderItems, products),
         cache(sales.best_selling_products, orderItems, products),
         cache(sales.average_orders_per_customer, orders, customer_id_map),
@@ -51,7 +51,8 @@ const calculateMetrics = async () => {
         cache(compta.get_monthly_revenue, orders, orderItems),
         cache(compta.average_basket_value, orders, orderItems),
         cache(compta.payments_type, orders, payments),
-        cache(management.top_performing_sellers, sellers, orders, orderItems)
+        cache(management.top_performing_sellers, sellers, orders, orderItems),
+        cache(management.monthly_order_count, orders)
     ])
     console.log('Total Time taken:', Date.now() - time, 'ms');
 
@@ -63,8 +64,8 @@ const calculateMetrics = async () => {
         monthlyRevenue,
         averageBasketValue,
         paymentsType,
-        topPerformingSellers, // Implement this logic
-        monthlyOrderCount: 0, // Implement this logic
+        topPerformingSellers,
+        monthlyOrderCount, // Implement this logic
     };
 };
 

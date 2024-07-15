@@ -34,3 +34,22 @@ export async function top_performing_sellers(sellers, orders, orderItems) {
 
     return sortedMonths
 }
+
+export async function monthly_order_count(orders) {
+    const monthlyOrderCount = {};
+    orders.forEach(order => {
+        let date = parseDate(order.order_purchase_timestamp);
+        let key = `${date.getFullYear()}-${date.getMonth()}`;
+        if (!monthlyOrderCount[key]) {
+            monthlyOrderCount[key] = 0;
+        }
+        monthlyOrderCount[key] += 1;
+    });
+
+    const sortedMonthlyOrderCount = {};
+    Object.keys(monthlyOrderCount).sort(compare_month).forEach(key => {
+        sortedMonthlyOrderCount[key] = monthlyOrderCount[key];
+    });
+
+    return sortedMonthlyOrderCount;
+}
