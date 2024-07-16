@@ -17,7 +17,7 @@ export async function top_performing_sellers(sellers, orders, orderItems) {
         }
         if (!months[key][seller.seller_id]) {
             months[key][seller.seller_id] = { sales: 0 };
-            months[key][seller.seller_id].name = seller.seller_id;
+            months[key][seller.seller_id].name = seller.name;
         }
         months[key][seller.seller_id].sales += 1;
     });

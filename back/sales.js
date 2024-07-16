@@ -31,7 +31,8 @@ export async function top_rated_products(reviews, orderItems, products) {
     // Sort products by average rating and get the top 10
     const topRatedProducts = productAverageRatings.sort((a, b) => b.averageRating - a.averageRating).slice(0, 10).map(({ productId, averageRating }) => {
         const product = products.find(p => p.product_id === productId);
-        return { productId, averageRating };
+        console.log(product);
+        return { productId, averageRating, name: product.product_name };
     });
 
     return topRatedProducts;

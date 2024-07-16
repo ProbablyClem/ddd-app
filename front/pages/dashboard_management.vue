@@ -1,35 +1,31 @@
 <template>
     <Card>
         <CardContent>
-            <div>
-                <h1>Panier Moyen</h1>
-            </div>
-            {{ average_monthly_basket }} BRL
-        </CardContent>
-    </Card>
-    <Card>
-        <CardContent>
             <highchart :options="optionsDiagram" />
         </CardContent>
     </Card>
     <Card>
         <CardContent>
-            <highchart :options="optionsLine" />
+            <highchart :options="optionsTopPerformingSellers" />
+        </CardContent>
+    </Card>
+    <Card>
+        <CardContent>
+            <highchart :options="optionsDeliveryTime" />
         </CardContent>
     </Card>
 </template>
 
 <script setup>
 const errorMessage = ref('');
-const average_monthly_basket = ref('');
-const monthly_revenue = ref('');
 const revenue_map_keys = ref([]);
 const revenue_map_values = ref([]);
-const payment_map_keys = ref([]);
-const payment_map_cc = ref([]);
-const payment_map_boleto = ref([]);
-const payment_map_voucher = ref([]);
-const payment_map_dc = ref([]);
+const top_performing_sellers_series = ref([]);
+const top_performing_sellers_months = ref([]);
+
+const score_by_delivery_time = ref([])
+const mean_delivery_time = ref(0)
+
 const optionsDiagram = computed(() => (
     {
         chart: {
@@ -78,11 +74,11 @@ const optionsDiagram = computed(() => (
     }
 ));
 
-const optionsLine = computed(() => (
+const optionsTopPerformingSellers = computed(() => (
     {
 
         title: {
-            text: 'Nombre de ventes par Moyen de Paiement',
+            text: 'Vendeurs les plus performants',
             align: 'left'
         },
 
@@ -98,7 +94,7 @@ const optionsLine = computed(() => (
         },
 
         xAxis: {
-            categories: revenue_map_keys.value,
+            categories: top_performing_sellers_months.value,
             accessibility: {
                 rangeDescription: 'De Septembre 2016 à Septembre 2018'
             }
@@ -110,19 +106,7 @@ const optionsLine = computed(() => (
             verticalAlign: 'middle'
         },
 
-        series: [{
-            name: 'Carte de Crédit',
-            data: payment_map_cc.value
-        }, {
-            name: 'Carte de Débit',
-            data: payment_map_dc.value
-        }, {
-            name: 'Bon d\'achat',
-            data: payment_map_voucher.value
-        }, {
-            name: 'Boleto',
-            data: payment_map_boleto.value
-        }],
+        series: top_performing_sellers_series.value,
 
         responsive: {
             rules: [{
@@ -142,19 +126,63 @@ const optionsLine = computed(() => (
     }
 ))
 
-const config = useRuntimeConfig()
-const get_average_monthly_basket = async () => {
-    try {
-        const response = await fetch(`${config.public.apiUrl}api/compta/average-basket-value`, {
-            method: 'GET',
-        });
-        let res = await response.json();
-        average_monthly_basket.value = Number.parseFloat(res).toFixed(2);
+const optionsDeliveryTime = computed(() => ({
+    chart: {
+        type: "spline",
+    },
+    title: {
+        text: 'Note moyenne par temps de livraison',
+        align: 'left'
+    },
+    subtitle: {
+        text: 'By ESGI Corp.',
+        align: 'left'
+    },
 
-    } catch (err) {
-        errorMessage.value = 'Impossible de récupérer les informations demandées.'
-    }
-}
+    yAxis: {
+        title: {
+            text: 'Note sur 5'
+        }
+    },
+
+    xAxis: {
+        min: 1,
+        crosshair: true,
+        title: {
+            text: 'Temps de livraison (jours)'
+        },
+        accessibility: {
+            description: 'Temps de livraison en jours'
+        },
+        plotLines: [{
+            color: 'red',
+            value: mean_delivery_time.value,
+            width: 2,
+            label: {
+                text: 'Temps de livraison moyen', // Content of the label. 
+            }
+        }],
+        plotBands: {
+            from: 20,
+            to: 50,
+            color: "rgba(255,165,0,0.5)",
+            label: {
+                text: 'Impact important', // Content of the label. 
+                align: 'left', // Positioning of the label. Default to center.
+                x: +10 // Amount of pixels the label will be repositioned according to the alignment. 
+            }
+        }
+    },
+
+    series: {
+        name: 'Note moyenne',
+        data: score_by_delivery_time.value,
+    },
+
+
+}))
+
+const config = useRuntimeConfig()
 
 const get_monthly_revenue = async () => {
     try {
@@ -175,28 +203,69 @@ const get_monthly_revenue = async () => {
     }
 }
 
-const get_monthly_payment_sales = async () => {
+const get_top_performing_sellers = async () => {
     try {
-        const response = await fetch(`${config.public.apiUrl}api/compta/payment-types`, {
+        const response = await fetch(`${config.public.apiUrl}/api/direction/top-performing-sellers`, {
             method: 'GET',
         });
         let res = await response.json();
+        const series = {}
 
-        const paymentMap = Object.keys(res).map(key => {
-            return { key: key, value: res[key] };
-        });
-
-        payment_map_keys.value = paymentMap.map(item => item.key);
-        payment_map_cc.value = paymentMap.map(item => item.value.credit_card ?? 0);
-        payment_map_boleto.value = paymentMap.map(item => item.value.boleto ?? 0);
-        payment_map_voucher.value = paymentMap.map(item => item.value.voucher ?? 0);
-        payment_map_dc.value = paymentMap.map(item => item.value.debit_card ?? 0);
-
+        Object.keys(res).forEach(month => {
+            top_performing_sellers_months.value.push(month)
+            res[month].forEach(seller => {
+                if (!series[seller.name]) {
+                    series[seller.name] = {
+                        name: seller.name,
+                        data: []
+                    }
+                }
+                series[seller.name].data.push(seller.sales)
+            })
+        })
+        let array = Object.keys(series).map(key => series[key]);
+        array = array.filter(item => item.data.length > 2).sort((a, b) => b.data.length - a.data.length).slice(0, 10)
+        top_performing_sellers_series.value = array;
     } catch (err) {
         errorMessage.value = 'Impossible de récupérer les informations demandées.'
+
     }
 }
-get_monthly_payment_sales()
-get_average_monthly_basket()
+
+const get_score_by_delivery_time = async () => {
+    try {
+        const response = await fetch(`${config.public.apiUrl}/api/direction/score-by-delivery-time`, {
+            method: 'GET'
+        })
+        let res = await response.json()
+        Object.keys(res).forEach(key => {
+            score_by_delivery_time.value.push({
+                x: Number.parseInt(key),
+                y: res[key]
+            })
+        })
+    }
+    catch (e) {
+        errorMessage.value = 'Impossible de récupérer les informations demandées'
+    }
+}
+
+const get_mean_delivery_time = async () => {
+    try {
+        const response = await fetch(`${config.public.apiUrl}/api/direction/mean-delivery-time`, {
+            method: 'GET'
+        })
+        let res = await response.json()
+        mean_delivery_time.value = res
+    }
+    catch (e) {
+        errorMessage.value = 'Impossible de récupérer les informations demandées'
+    }
+
+}
+
+get_top_performing_sellers()
 get_monthly_revenue()
+get_score_by_delivery_time()
+get_mean_delivery_time()
 </script>
