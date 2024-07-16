@@ -142,7 +142,7 @@ const optionsLine = computed(() => (
     }
 ))
 
-// const config = useRuntimeConfig()
+const config = useRuntimeConfig()
 const get_average_monthly_basket = async () => {
     try {
         const response = await fetch(`${config.public.apiUrl}/api/compta/average-basket-value`, {
