@@ -205,7 +205,7 @@ const get_monthly_revenue = async () => {
 
 const get_top_performing_sellers = async () => {
     try {
-        const response = await fetch(`${config.public.apiUrl}/api/direction/top-performing-sellers`, {
+        const response = await fetch(`${config.public.apiUrl}api/direction/top-performing-sellers`, {
             method: 'GET',
         });
         let res = await response.json();
@@ -234,7 +234,7 @@ const get_top_performing_sellers = async () => {
 
 const get_score_by_delivery_time = async () => {
     try {
-        const response = await fetch(`${config.public.apiUrl}/api/direction/score-by-delivery-time`, {
+        const response = await fetch(`${config.public.apiUrl}api/direction/score-by-delivery-time`, {
             method: 'GET'
         })
         let res = await response.json()
@@ -252,7 +252,7 @@ const get_score_by_delivery_time = async () => {
 
 const get_mean_delivery_time = async () => {
     try {
-        const response = await fetch(`${config.public.apiUrl}/api/direction/mean-delivery-time`, {
+        const response = await fetch(`${config.public.apiUrl}api/direction/mean-delivery-time`, {
             method: 'GET'
         })
         let res = await response.json()

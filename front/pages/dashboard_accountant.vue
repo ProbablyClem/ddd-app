@@ -223,7 +223,7 @@ const optionsLine = computed(() => (
 
     }
 ));
-const get_average_monthly_basket = async () => {
+const get_average_basket = async () => {
     try {
         const response = await fetch(`${config.public.apiUrl}api/compta/average-basket-value`, {
             method: 'GET',
