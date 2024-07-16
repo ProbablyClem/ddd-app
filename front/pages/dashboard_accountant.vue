@@ -1,20 +1,56 @@
 <template>
+    <div class="flex flex-wrap lg:flex-nowrap lg:space-x-4 lg:mb-4">
+        <Card class="lg:w-1/2 flex flex-col justify-between">
+            <CardHeader class="font-bold">
+                Chiffre D'affaire Total 2018
+            </CardHeader>
+            <CardContent class="mt-auto text-2xl self-end">
+                {{ Number.parseFloat(total_revenue_2018).toFixed(2) }}
+            </CardContent>
+        </Card>
+        <Card class="lg:w-1/2 flex flex-col justify-between">
+            <CardHeader class="font-bold">
+                Montant Panier Moyen
+            </CardHeader>
+            <CardContent class="mt-auto text-2xl self-end">
+                {{ average_monthly_basket }} (BRL)
+            </CardContent>
+        </Card>
+    </div>
+    <div class="lg:mb-4">
+        <Tabs default-value="Mensuel">
+            <TabsList class="grid w-full grid-cols-2">
+                <TabsTrigger value="Mensuel">
+                    Mensuel
+                </TabsTrigger>
+                <TabsTrigger value="Annuel">
+                    Annuel
+                </TabsTrigger>
+            </TabsList>
+            <TabsContent value="Mensuel">
+                <Card>
+                    <CardContent class="lg:pt-2">
+                        <highchart :options="optionsDiagramMonthly" />
+                    </CardContent>
+                </Card>
+            </TabsContent>
+            <TabsContent value="Annuel">
+                <Card>
+                    <CardContent class="lg:pt-2">
+                        <highchart :options="optionsDiagramAnnually" />
+                    </CardContent>
+                </Card>
+            </TabsContent>
+        </Tabs>
+    </div>
     <Card>
-        <CardContent>
-            <div>
-                <h1>Panier Moyen</h1>
-            </div>
-            {{ average_monthly_basket }} BRL
-        </CardContent>
-    </Card>
-    <Card>
-        <CardContent>
-            <highchart :options="optionsDiagram" />
-        </CardContent>
-    </Card>
-    <Card>
-        <CardContent>
+        <CardContent class="lg:pt-2">
             <highchart :options="optionsLine" />
+        </CardContent>
+    </Card>
+    <Card>
+        <CardContent class="lg:pt-2">
+            <highchart :options="optionsDiagramAnnually" />
         </CardContent>
     </Card>
 </template>
@@ -22,7 +58,6 @@
 <script setup>
 const errorMessage = ref('');
 const average_monthly_basket = ref('');
-const monthly_revenue = ref('');
 const revenue_map_keys = ref([]);
 const revenue_map_values = ref([]);
 const payment_map_keys = ref([]);
@@ -31,7 +66,10 @@ const payment_map_boleto = ref([]);
 const payment_map_voucher = ref([]);
 const payment_map_dc = ref([]);
 const config = useRuntimeConfig();
-const optionsDiagram = computed(() => (
+const total_revenue_2018 = ref([]);
+const total_revenue_2016 = ref([]);
+const total_revenue_2017 = ref([]);
+const optionsDiagramMonthly = computed(() => (
     {
         chart: {
             type: 'column'
@@ -74,6 +112,54 @@ const optionsDiagram = computed(() => (
             {
                 name: 'Chiffre d\'affaire',
                 data: revenue_map_values.value
+            },
+        ]
+    }
+));
+
+const optionsDiagramAnnually = computed(() => (
+    {
+        chart: {
+            type: 'bar'
+        },
+
+        title: {
+            text: 'Chiffre d\'affaire mensuel',
+            align: 'left'
+        },
+
+
+        subtitle: {
+            text: 'By ESGI Corp.',
+            align: 'left'
+        },
+
+        xAxis: {
+            categories: ['2016', '2017', '2018'],
+            crosshair: true,
+            accessibility: {
+                description: 'Septembre 2016 à Septembre 2018'
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Chiffre d\'affaire (BRL)'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' (BRL)'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Chiffre d\'affaire',
+                data: [total_revenue_2016.value, total_revenue_2017.value, total_revenue_2018.value]
             },
         ]
     }
@@ -141,9 +227,9 @@ const optionsLine = computed(() => (
         }
 
     }
-))
+));
 
-const get_average_monthly_basket = async () => {
+const get_average_basket = async () => {
     try {
         const response = await fetch(`${config.public.apiUrl}api/compta/average-basket-value`, {
             method: 'GET',
@@ -169,6 +255,10 @@ const get_monthly_revenue = async () => {
 
         revenue_map_keys.value = revenueMap.map(item => item.key);
         revenue_map_values.value = revenueMap.map(item => Number.parseFloat(Number.parseFloat(item.value).toFixed(2)));
+
+        total_revenue_2016.value = Number.parseFloat(Number.parseFloat(revenueMap.filter(item => item.key.includes('2016')).map(item => Number.parseFloat(item.value)).reduce((a, b) => a + b, 0)).toFixed(2));
+        total_revenue_2017.value = Number.parseFloat(Number.parseFloat(revenueMap.filter(item => item.key.includes('2017')).map(item => Number.parseFloat(item.value)).reduce((a, b) => a + b, 0)).toFixed(2));
+        total_revenue_2018.value = Number.parseFloat(Number.parseFloat(revenueMap.filter(item => item.key.includes('2018')).map(item => Number.parseFloat(item.value)).reduce((a, b) => a + b, 0)).toFixed(2));
 
     } catch (err) {
         errorMessage.value = 'Impossible de récupérer les informations demandées.'
@@ -197,6 +287,6 @@ const get_monthly_payment_sales = async () => {
     }
 }
 get_monthly_payment_sales()
-get_average_monthly_basket()
+get_average_basket()
 get_monthly_revenue()
 </script>
