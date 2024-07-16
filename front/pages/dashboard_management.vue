@@ -9,19 +9,22 @@
             <highchart :options="optionsTopPerformingSellers" />
         </CardContent>
     </Card>
+    <Card>
+        <CardContent>
+            <highchart :options="optionsDeliveryTime" />
+        </CardContent>
+    </Card>
 </template>
 
 <script setup>
 const errorMessage = ref('');
 const revenue_map_keys = ref([]);
 const revenue_map_values = ref([]);
-const payment_map_cc = ref([]);
-const payment_map_boleto = ref([]);
-const payment_map_voucher = ref([]);
-const payment_map_dc = ref([]);
-
 const top_performing_sellers_series = ref([]);
 const top_performing_sellers_months = ref([]);
+
+const score_by_delivery_time = ref([])
+const mean_delivery_time = ref(0)
 
 const optionsDiagram = computed(() => (
     {
@@ -123,6 +126,62 @@ const optionsTopPerformingSellers = computed(() => (
     }
 ))
 
+const optionsDeliveryTime = computed(() => ({
+    chart: {
+        type: "spline",
+    },
+    title: {
+        text: 'Note moyenne par temps de livraison',
+        align: 'left'
+    },
+    subtitle: {
+        text: 'By ESGI Corp.',
+        align: 'left'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Note sur 5'
+        }
+    },
+
+    xAxis: {
+        min: 1,
+        crosshair: true,
+        title: {
+            text: 'Temps de livraison (jours)'
+        },
+        accessibility: {
+            description: 'Temps de livraison en jours'
+        },
+        plotLines: [{
+            color: 'red',
+            value: mean_delivery_time.value,
+            width: 2,
+            label: {
+                text: 'Temps de livraison moyen', // Content of the label. 
+            }
+        }],
+        plotBands: {
+            from: 20,
+            to: 50,
+            color: "rgba(255,165,0,0.5)",
+            label: {
+                text: 'Impact important', // Content of the label. 
+                align: 'left', // Positioning of the label. Default to center.
+                x: +10 // Amount of pixels the label will be repositioned according to the alignment. 
+            }
+        }
+    },
+
+    series: {
+        name: 'Note moyenne',
+        data: score_by_delivery_time.value,
+    },
+
+
+}))
+
 const config = useRuntimeConfig()
 
 const get_monthly_revenue = async () => {
@@ -164,7 +223,6 @@ const get_top_performing_sellers = async () => {
                 series[seller.name].data.push(seller.sales)
             })
         })
-        console.log(series)
         let array = Object.keys(series).map(key => series[key]);
         array = array.filter(item => item.data.length > 2).sort((a, b) => b.data.length - a.data.length).slice(0, 10)
         top_performing_sellers_series.value = array;
@@ -174,6 +232,40 @@ const get_top_performing_sellers = async () => {
     }
 }
 
+const get_score_by_delivery_time = async () => {
+    try {
+        const response = await fetch(`${config.public.apiUrl}/api/direction/score-by-delivery-time`, {
+            method: 'GET'
+        })
+        let res = await response.json()
+        Object.keys(res).forEach(key => {
+            score_by_delivery_time.value.push({
+                x: Number.parseInt(key),
+                y: res[key]
+            })
+        })
+    }
+    catch (e) {
+        errorMessage.value = 'Impossible de récupérer les informations demandées'
+    }
+}
+
+const get_mean_delivery_time = async () => {
+    try {
+        const response = await fetch(`${config.public.apiUrl}/api/direction/mean-delivery-time`, {
+            method: 'GET'
+        })
+        let res = await response.json()
+        mean_delivery_time.value = res
+    }
+    catch (e) {
+        errorMessage.value = 'Impossible de récupérer les informations demandées'
+    }
+
+}
+
 get_top_performing_sellers()
 get_monthly_revenue()
+get_score_by_delivery_time()
+get_mean_delivery_time()
 </script>
