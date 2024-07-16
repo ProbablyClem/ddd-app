@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "nuxt-highcharts",
+    "@nuxt/image"
   ],
   shadcn: {
     /**

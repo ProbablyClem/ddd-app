@@ -145,7 +145,7 @@ const optionsLine = computed(() => (
 const config = useRuntimeConfig()
 const get_average_monthly_basket = async () => {
     try {
-        const response = await fetch(`${config.public.apiUrl}/api/compta/average-basket-value`, {
+        const response = await fetch(`${config.public.apiUrl}api/compta/average-basket-value`, {
             method: 'GET',
         });
         let res = await response.json();
@@ -158,7 +158,7 @@ const get_average_monthly_basket = async () => {
 
 const get_monthly_revenue = async () => {
     try {
-        const response = await fetch(`${config.public.apiUrl}/api/compta/monthly-revenue`, {
+        const response = await fetch(`${config.public.apiUrl}api/compta/monthly-revenue`, {
             method: 'GET',
         });
         let res = await response.json();
@@ -177,7 +177,7 @@ const get_monthly_revenue = async () => {
 
 const get_monthly_payment_sales = async () => {
     try {
-        const response = await fetch(`${config.public.apiUrl}/api/compta/payment-types`, {
+        const response = await fetch(`${config.public.apiUrl}api/compta/payment-types`, {
             method: 'GET',
         });
         let res = await response.json();

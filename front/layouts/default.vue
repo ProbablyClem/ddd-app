@@ -45,14 +45,9 @@
 
                 </ul>
             </div>
-            <nuxt-link to="/home"
-                class="absolute bottom-0 mb-4 ml-4 text-2xl bg-transparent border-none flex items-center">
-                <div class="imgLogout"></div>
-            </nuxt-link>
-            <nuxt-link to="/profil"
-                class="absolute bottom-0 left-48 mb-4 ml-4 text-2xl bg-transparent border-none flex items-center">
-                <div class="imgParameters"></div>
-            </nuxt-link>
+            <NuxtLink to="/" class="absolute bottom-0 mb-4 ml-4 text-2xl bg-transparent border-none flex items-center">
+                <NuxtImg class="h-6 w-6" src="../public/images/back.png" />
+            </NuxtLink>
         </div>
 
         <!-- Main Content -->
