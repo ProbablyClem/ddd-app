@@ -38,7 +38,7 @@
                             <tbody v-for="products, index in best_selling_products">
                                 <tr>
                                     <th>{{ index + 1 }}</th>
-                                    <td>{{ products.productId }}</td>
+                                    <td>{{ products.name }}</td>
                                     <td>{{ products.sales }}</td>
                                 </tr>
                             </tbody>
@@ -64,7 +64,7 @@
                             </thead>
                             <tbody v-for="products in top_rated_products">
                                 <tr>
-                                    <td>{{ products.productId }}</td>
+                                    <td>{{ products.name }}</td>
                                     <td>{{ products.averageRating }}</td>
                                 </tr>
                             </tbody>

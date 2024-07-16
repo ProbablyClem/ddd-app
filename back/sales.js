@@ -50,7 +50,8 @@ export async function best_selling_products(orderItems, products) {
 
     // Find the top 10 best-selling products
     const bestSellingProducts = Object.entries(productSales).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([productId, sales]) => {
-        return { productId, sales };
+        const product = products.find(p => p.product_id === productId);
+        return { productId, sales, name: product.product_name };
     });
 
     return bestSellingProducts;
