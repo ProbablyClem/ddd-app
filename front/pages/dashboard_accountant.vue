@@ -48,11 +48,6 @@
             <highchart :options="optionsLine" />
         </CardContent>
     </Card>
-    <Card>
-        <CardContent class="lg:pt-2">
-            <highchart :options="optionsDiagramAnnually" />
-        </CardContent>
-    </Card>
 </template>
 
 <script setup>
@@ -66,9 +61,9 @@ const payment_map_boleto = ref([]);
 const payment_map_voucher = ref([]);
 const payment_map_dc = ref([]);
 const config = useRuntimeConfig();
-const total_revenue_2018 = ref([]);
-const total_revenue_2016 = ref([]);
-const total_revenue_2017 = ref([]);
+const total_revenue_2018 = ref(0);
+const total_revenue_2016 = ref(0);
+const total_revenue_2017 = ref(0);
 const optionsDiagramMonthly = computed(() => (
     {
         chart: {
