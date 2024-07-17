@@ -5,7 +5,7 @@
                 Chiffre D'affaire Total 2018
             </CardHeader>
             <CardContent class="mt-auto text-2xl self-end">
-                {{ Number.parseFloat(total_revenue_2018).toFixed(2) }}
+                {{ Number.parseFloat(total_revenue_2018).toFixed(2) }} (BRL)
             </CardContent>
         </Card>
         <Card class="lg:w-1/2 flex flex-col justify-between">
