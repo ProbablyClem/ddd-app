@@ -78,6 +78,7 @@
 
 
 <script setup>
+const errorMessage = ref('');
 const config = useRuntimeConfig()
 const average_orders_per_customer = ref('');
 const best_selling_products = ref('');
