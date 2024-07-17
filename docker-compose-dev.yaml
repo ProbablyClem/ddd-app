@@ -1,7 +1,7 @@
 version: '3'
 services:
   front:
-    image: probablyclem/ddd-front:latest
+    build: ./front
     ports:
       - "3002:3000"
     environment:
@@ -10,7 +10,7 @@ services:
       - app
 
   back:
-    image : probablyclem/ddd-back:latest
+    build : ./back
     ports:
       - "3000:3000"
     networks:
